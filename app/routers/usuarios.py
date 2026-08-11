@@ -26,3 +26,16 @@ def registrar_usuario(datos: schemas.UsuarioCrear, db: Session = Depends(get_db)
     db.refresh(nuevo_usuario)
 
     return nuevo_usuario
+
+@router.post("/login")
+def login(datos: schemas.UsuarioCrear, db: Session = Depends(get_db)):
+    usuario = db.query(models.Usuario).filter(
+        models.Usuario.email == datos.email
+    ).first()
+
+    if not usuario or not auth.verificar_password(datos.password, usuario.password_hash):
+        raise HTTPException(status_code=401, detail="Email o contraseña incorrectos")
+
+    token = auth.crear_token({"sub": usuario.email})
+
+    return {"access_token": token, "token_type": "bearer"}
