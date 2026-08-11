@@ -36,3 +36,38 @@ def verificar_token(token: str) -> dict | None:
         return payload
     except JWTError:
         return None
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from sqlalchemy.orm import Session
+
+from app.database import get_db
+from app import models
+
+oauth2_scheme = HTTPBearer()
+
+
+def obtener_usuario_actual(
+    credenciales: HTTPAuthorizationCredentials = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
+):
+    credenciales_invalidas = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="No se pudo validar el token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    token = credenciales.credentials
+
+    payload = verificar_token(token)
+    if payload is None:
+        raise credenciales_invalidas
+
+    email = payload.get("sub")
+    if email is None:
+        raise credenciales_invalidas
+
+    usuario = db.query(models.Usuario).filter(models.Usuario.email == email).first()
+    if usuario is None:
+        raise credenciales_invalidas
+
+    return usuario
