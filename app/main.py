@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 
 from app.database import engine, Base
 from app import models
-from app.routers import usuarios
+from app.routers import usuarios, tableros
 from app.auth import obtener_usuario_actual
 
 Base.metadata.create_all(bind=engine)
@@ -10,6 +10,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Mini Trello API")
 
 app.include_router(usuarios.router)
+app.include_router(tableros.router)
 
 
 @app.get("/")

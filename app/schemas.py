@@ -14,3 +14,16 @@ class UsuarioRespuesta(BaseModel):
 
     class Config:
         from_attributes = True
+
+class TableroCrear(BaseModel):
+    nombre: str
+
+
+class TableroRespuesta(BaseModel):
+    id: str
+    nombre: str
+    usuario_id: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
