@@ -1,29 +1,34 @@
 # Mini Trello - Backend
 
-API para gestionar tableros, listas y tarjetas de tareas, inspirada en Trello. Proyecto personal paralelo a la facultad (Ingeniería en Software, Siglo 21).
+API REST para gestionar tableros de tareas, inspirada en Trello. Proyecto personal paralelo a la facultad (Ingeniería en Software, Universidad Siglo 21).
 
 ## Tecnologías
-- [Lenguaje, ej: Java 17 / Node.js / Python]
-- [Framework, ej: Spring Boot / Express / FastAPI]
-- [Base de datos, ej: PostgreSQL / MySQL / MongoDB]
+- Python
+- FastAPI
+- SQLAlchemy (ORM)
+- [Base de datos: SQLite / PostgreSQL / la que uses]
 
 ## Funcionalidades
-- [Crear, editar y eliminar tableros]
-- [Crear listas dentro de un tablero]
-- [Crear y mover tarjetas entre listas]
-- [Lo que tenga tu proyecto]
+- Registro de usuarios
+- Crear tableros
+- Listar tableros
+- Obtener un tablero por id
+
+## Próximamente
+- Listas dentro de cada tablero
+- Tarjetas y moverlas entre listas
+- Autenticación de usuarios
 
 ## Cómo ejecutarlo
 1. Clonar el repositorio:
    git clone https://github.com/santifaya1/mini-trello-backend.git
 2. Entrar a la carpeta:
    cd mini-trello-backend
-3. [Instalar dependencias, ej: npm install / mvn install / pip install -r requirements.txt]
-4. [Comando para correrlo, ej: npm start]
-
-## Endpoints principales
-- [GET /boards - lista los tableros]
-- [POST /boards - crea un tablero]
+3. Instalar dependencias:
+   pip install fastapi uvicorn sqlalchemy
+4. Levantar el servidor:
+   uvicorn app.main:app --reload
+5. Abrir la documentación automática en http://127.0.0.1:8000/docs
 
 ## Autor
-Santiago Faya - [link a tu LinkedIn]
+Santiago Faya - www.linkedin.com/in/santiago-faya-5a6b38254
